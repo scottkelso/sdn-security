@@ -1,0 +1,29 @@
+# Kill ALL docker containers
+sh docker-death.sh
+
+# Export vars and run Poseidon
+sh run-poseidon.sh
+
+------------------
+
+# Make sure conflicting services stopped
+sudo systemctl status faucet.service gauge.service prometheus.service grafana-server.service poseidon.service
+
+# Run Faucet, Guage, Prometheus, Grafana-server & Mininet
+sh run-faucnet.sh
+
+------------------
+
+# Add permissions for mininet xterm
+sudo xhost +si:localuser:root
+
+------------------
+
+# Run mininet topology
+mn --topo single,10 --mac --controller=remote,ip=$DOCKER_HOST,port=6653 --controller=remote,ip=$DOCKER_HOST,port=6654 --switch ovsk
+
+------------------
+
+# Wait until Faucet's L2 learns expire
+sleep 5minutes
+h1 ping h2
