@@ -67,6 +67,47 @@ Whether one executes the `./helpers/run` script or uses the poseidon command `po
 ### 2) Faucet, Gauge, Grafana, Prometheus & 3) Mininet
 These two steps have been segregated because mininet cannot start without all the components of step 2. However they can both be run one after the other using one of the scripts `run-faucnet.sh`.
 
+## Scripts
+#### Poseidon's run script
+The following detail describes the workings of this script: `./run-poseidon.sh`. This script is that which I used to run Poseidon on a Dell Ubuntu 18.04 laptop. Remember to prefix the script with `sh` to run it like so...
+```commandline
+sh run-poseidon.sh
+```
+
+Contained within poseidon's codebase there is a run script that can be run via the root of the cloned repo like the following...
+```commandline
+git clone https://github.com/cyberreboot/poseidon.git
+cd poseidon
+***environment variables***
+./helpers/run
+```
+
+The other step necessary for the simplified code above to work is the environment variables to be exported. Like the terminal UI described above, we need to tell poseidon configuration variables. We do this by exporting them to the environment. We can do this with the following code.
+```commandline
+export controller_uri=
+export controller_type=faucet
+export controller_log_file=/var/log/faucet/faucet.log
+export controller_config_file=/etc/faucet/faucet.yaml
+export controller_mirror_ports='{"sw1":10}'
+export collector_nic=s1-eth10
+export max_concurrent_reinvestigations=1
+```
+
+#### Faucet and Mininet's run script
+The `run-faucnet.sh` script is primarily for setting up setup 2 as described above.  It builds and runs a docker-compose command which launches Faucet, Guage, Prometheus & Grafana-server in containers.  
+
+It also sets up the mininet container. Mininet requires two steps before you have a running network topology. The container needs launched, and then the mininet topology needs built.  This script does the former of these two steps in preperation for step 3 as detailed above. That is to say that the mininet container is built, but no virtual network has been initialised.
+ 
+This script has a number of prerequisites that need explained before it can be successfully run.  See the README.md file in the poseidon folder.
+
+When you are ready to launch the mininet topology, copy and paste the following command (which can also be accessed in the `cold-start.txt` file) and run within the running mininet container.
+
+```commandline
+mn --topo single,10 --mac --controller=remote,ip=$DOCKER_HOST,port=6653 --controller=remote,ip=$DOCKER_HOST,port=6654 --switch ovsk
+```
+One can also append the `-x` option onto this command to automatically launch xterms for each host. This is useful to do to test that the xterm permissions are working correctly. See this [issue](https://github.com/iwaseyusuke/docker-mininet) for details.
+
+The above two scripts should be enough to run the live poseidon system but we expect it to be difficult as it can be very temperamental and is constantly in a state of change.
 
 ## Contributers
 - [Josh Kelso](https://github.com/scottkelso) - Focus on virtual mininet system

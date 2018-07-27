@@ -23,6 +23,9 @@ export FAUCET_CONFIG_STAT_RELOAD=1
 export FA_RABBIT_HOST=$ip
 docker-compose -f docker-compose.yaml -f adapters/vendors/rabbitmq/docker-compose.yaml up --build -d
 
+# Add permissions for mininet's xterms on the host machine
+sudo xhost +
+
 # Run Mininet
 cd ~/workspace/docker-mininet
 docker build -t mininet .
