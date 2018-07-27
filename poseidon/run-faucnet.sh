@@ -6,7 +6,9 @@
 # ~/workspace/traffic
 # docker
 # docker-compose
-# xhost
+# sudo xhost
+# assuming that faucet directories have been setup
+# (https://faucet.readthedocs.io/en/latest/tutorials/first_time.html#configure-faucet)
 
 # Grab local IP address
 ip=`hostname -I | awk '{print $1}'`

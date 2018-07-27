@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# PREREQUISITS...
+# ~/workspace/poseidon/
+# docker
+
 # Kill conflicting containers before startup
 echo "Stopping and removing poseidon docker instances...."
 for LOOP in `docker ps -aqf "name=cyberreboot"`
