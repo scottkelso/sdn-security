@@ -21,3 +21,17 @@ sh /traffic/h7.sh
 Not all of these scripts currently work on the Dell Ubuntu laptop I am setup on. These scripts will definitely need edited if setting up on another machine as those from host 4 onwards require particular pcap files to be in the traffic folder.
 
 See below the current commands in each script.
+
+```markdown
+HOST    OPERATIONS
+h1      ping 10.0.0.2
+h2      iperf -s
+h3      iperf -c 10.0.0.2 -t 100
+h4      tcpreplay --loop=1000 --intf1=h4-eth0 /traffic/TenMinutesWebBrowsing.pcap
+h5      tcpreplay --loop=1000 --intf1=h5-eth0 /traffic/FullNodeExtract/161008-9-308cfb2fe4b2.pcap.pcap
+h6      tcpreplay --loop=1000 --intf1=h6-eth0 /traffic/One-161012.pcap
+h7      tcpreplay --loop=1000 --intf1=h7-eth0 /traffic/JAN15-2016-EXT.pcap
+h8      tcpreplay --loop=1000 --intf1=h8-eth0 /traffic/SanatizedAttack.pcap
+h9      tcpreplay --loop=1000 --intf1=h9-eth0 /traffic/yolo.pcap
+h10     wireshark &
+```
