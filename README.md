@@ -67,6 +67,9 @@ Whether one executes the `./helpers/run` script or uses the poseidon command `po
 ### 2) Faucet, Gauge, Grafana, Prometheus & 3) Mininet
 These two steps have been segregated because mininet cannot start without all the components of step 2. However they can both be run one after the other using one of the scripts `run-faucnet.sh`.
 
+## Running Standalone Machine Learning
+The standalone machine learning module runs separately to the rest of the system. One must clone and build the repository to use it. See the documentation in the `PoseidonML` folder.
+
 ## Scripts
 #### Poseidon's run script
 The following detail describes the workings of this script: `./run-poseidon.sh`. This script is that which I used to run Poseidon on a Dell Ubuntu 18.04 laptop. Remember to prefix the script with `sh` to run it like so...
