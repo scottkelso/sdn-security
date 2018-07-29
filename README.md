@@ -1,22 +1,21 @@
-# Using Machine Learning to detect Security Issues in SDN's
+# Using Machine Learning to detect Security Flaws in SDN's
 
 The following is a technical guide for setting up the virtual network and outlining details about the final system that we completed during our summer research internship.
 
 _**Note**: I may change between using **"I"** and **"we"** to identify myself. The reason for this is that I was not the only one working on this project (see contributers list)._
 
-During these eight weeks, I feel that we didn't actually get very close to what I had intended to achieve. 
 ## Our Original Goal
 This can be broken down into a number of steps.
  1) Setup the Poseidon and Mininet system
- 2) Chose at least one type of known network attack to run on the system 
+ 2) Choose at least one type of known network attack to run on the system 
  3) Try tuning the current ML algorithms or implementing our own to detect this malicious traffic
  4) Use poseidon's connection to the SDN controller to perform an action such as blocking the malicious traffic
  
-By the last week, we had completed points 1 and 2, but only partially attempted 3 and 4. Limitations around these two uncompleted points arose due to the fragile and feature-light state poseidon is currently in. We were expecting feature 4 to be easily activated but discovered that there is next to no code in master to do this. We therefore attempted a quick, version ourselves for a proof of concept. This is not complete at the time I am writing this report.
+By the last week, we had completed points 1 and 2, but only partially attempted 3 and 4. Limitations around these two uncompleted points arose due to the fragile state poseidon is currently in. We were expecting feature 4 to be easily activated but discovered that this feature hadn't been implimented in master yet. We therefore attempted a quick version ourselves for a proof of concept. This is partially complete and can been viewed [here](https://github.com/jaiken06/poseidon).
 
 ## Prerequisits
 - This guide assumes you have a linix based OS (we used Ubuntu 16.04 and 18.04, however we would advise using a more stable OS such as [CentOS](https://www.centos.org/)).
-
+_**Note**: We haven't tested poseidon on another OS so cannot confirm that it will work._
 The following packages will been installed prior to using any of the scripts or commands below
 - docker
 - docker-compose
@@ -72,6 +71,8 @@ The standalone machine learning module runs separately to the rest of the system
 
 ## Scripts
 #### Poseidon's run script
+See [here](https://gitlab.eeecs.qub.ac.uk/40129940/sdn-security/tree/master/poseidon) for more details on this particular poseidon setup.
+
 The following detail describes the workings of this script: `./run-poseidon.sh`. This script is that which I used to run Poseidon on a Dell Ubuntu 18.04 laptop. Remember to prefix the script with `sh` to run it like so...
 ```commandline
 sh run-poseidon.sh
@@ -97,6 +98,8 @@ export max_concurrent_reinvestigations=1
 ```
 
 #### Faucet and Mininet's run script
+See [here](https://gitlab.eeecs.qub.ac.uk/40129940/sdn-security/tree/master/mininet) for more details on this particular mininet setup.
+
 The `run-faucnet.sh` script is primarily for setting up setup 2 as described above.  It builds and runs a docker-compose command which launches Faucet, Guage, Prometheus & Grafana-server in containers.  
 
 It also sets up the mininet container. Mininet requires two steps before you have a running network topology. The container needs launched, and then the mininet topology needs built.  This script does the former of these two steps in preperation for step 3 as detailed above. That is to say that the mininet container is built, but no virtual network has been initialised.
@@ -111,6 +114,9 @@ mn --topo single,10 --mac --controller=remote,ip=$DOCKER_HOST,port=6653 --contro
 One can also append the `-x` option onto this command to automatically launch xterms for each host. This is useful to do to test that the xterm permissions are working correctly. See this [issue](https://github.com/iwaseyusuke/docker-mininet) for details.
 
 The above two scripts should be enough to run the live poseidon system but we expect it to be difficult as it can be very temperamental and is constantly in a state of change.
+
+#### Using PoseidonML
+See [here](https://gitlab.eeecs.qub.ac.uk/40129940/sdn-security/tree/master/PoseidonML) for more details on this particular PoseidonML setup.
 
 ## Contributers
 - [Josh Kelso](https://github.com/scottkelso) - Focus on virtual mininet system
