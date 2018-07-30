@@ -6,10 +6,11 @@ _**Note**: I may change between using **"I"** and **"we"** to identify myself. T
 
 ## Our Original Goal
 This can be broken down into a number of steps.
- 1) Setup the Poseidon and Mininet system
- 2) Choose at least one type of known network attack to run on the system 
- 3) Try tuning the current ML algorithms or implementing our own to detect this malicious traffic
- 4) Use poseidon's connection to the SDN controller to perform an action such as blocking the malicious traffic
+ 
+1) Setup the Poseidon and Mininet system
+2) Choose at least one type of known network attack to run on the system 
+3) Try tuning the current ML algorithms or implementing our own to detect this malicious traffic
+4) Use poseidon's connection to the SDN controller to perform an action such as blocking the malicious traffic
  
 By the last week, we had completed points 1 and 2, but only partially attempted 3 and 4. Limitations around these two uncompleted points arose due to the fragile state poseidon is currently in. We were expecting feature 4 to be easily activated but discovered that this feature hadn't been implimented in master yet. We therefore attempted a quick version ourselves for a proof of concept. This is partially complete and can been viewed [here](https://github.com/jaiken06/poseidon).
 
